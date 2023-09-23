@@ -11,34 +11,34 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 public class OrderController {
 
-    private final OrderService customerService;
+    private final OrderService orderService;
 
-    public OrderController(OrderService customerService) {
-        this.customerService = customerService;
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "application/json", produces = "application/json")
-    OrderDTO saveCustomer(@RequestBody OrderDTO customerDto) {
+    OrderDTO saveOrder(@RequestBody OrderDTO orderDTO) {
         //If have errors
-        return customerService.saveCustomer(customerDto);
+        return orderService.saveOrder(orderDTO);
     }
 
     @GetMapping(value = "{code}", produces = MediaType.APPLICATION_JSON_VALUE)
-    OrderDTO getSelectedCustomer(@PathVariable String code) {
-        return customerService.getSelectedCustomer(code);
+    OrderDTO getSelectedOrder(@PathVariable String code) {
+        return orderService.getSelectedOrder(code);
     }
 
     @DeleteMapping(value = "{code}")
-    void deleteCustomer(@PathVariable String code) {
-        customerService.deleteCustomer(code);
+    void deleteOrder(@PathVariable String code) {
+        orderService.deleteOrder(code);
     }
 
     @PatchMapping(value = "{code}")
-    void updateCustomer(@PathVariable String code, @RequestBody OrderDTO customer) {
+    void updateOrder(@PathVariable String code, @RequestBody OrderDTO orderDTO) {
         //chk errors
-        customer.setCustomerId(code);
-        customerService.updateCustomer(customer);
+        orderDTO.setOrderId(code);
+        orderService.updateOrder(orderDTO);
     }
 
 }
